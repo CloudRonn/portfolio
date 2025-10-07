@@ -183,3 +183,26 @@
 .footer a:hover {
   background: rgba(255, 255, 255, 0.1);
 }
+.main-heading {
+  font-size: 3rem;
+  font-weight: 700;
+  background: linear-gradient(to right, #6366f1, #ec4899);
+  -webkit-background-clip: text;
+  color: transparent;
+  margin-bottom: 10px;
+}
+
+.sub-heading {
+  font-size: 1.7rem;
+  font-weight: 500;
+  color: #f472b6;
+  opacity: 0;
+  animation: fadeInSkill 0.5s forwards;
+}
+
+@keyframes fadeInSkill {
+  to {
+    opacity: 1;
+  }
+}
+

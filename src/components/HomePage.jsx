@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
+import profileImg from "../assets/profile.jpg";
 import "../styles/Homepage.css";
 
 function SkillBar({ name, percent }) {
@@ -39,11 +40,33 @@ export default function Homepage() {
     { name: "JavaScript", pct: 85 },
   ];
 
+  const professionalSkills = useMemo(() => [
+    "Full-Stack Developer",
+    "Software Engineer",
+    "UI/UX Enthusiast",
+    "Project Manager",
+    "Team Player",
+    "Problem Solver"
+  ], []);
+
+  const [displayedSkill, setDisplayedSkill] = useState(professionalSkills[0]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDisplayedSkill(prev => {
+        const currentIndex = professionalSkills.indexOf(prev);
+        const nextIndex = (currentIndex + 1) % professionalSkills.length;
+        return professionalSkills[nextIndex];
+      });
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [professionalSkills]);
+
   return (
     <div className="homepage">
-      {/* HEADER */}
       <header className="header">
-        <div className="logo">Ronnie</div>
+        <div className="logo">CloudRonn</div>
         <nav className="nav">
           <a href="#about">About</a>
           <a href="#projects">Projects</a>
@@ -51,64 +74,47 @@ export default function Homepage() {
         </nav>
       </header>
 
-      {/* HERO SECTION */}
       <section className="hero">
         <div className="hero-text">
-          <h1>Hey, I am Web Dev</h1>
-          <p>
-            Building your dream <span>in visual tech!</span>
-          </p>
+          <h1 className="main-heading">Hello, I'm Ronny Mutuma</h1>
+          <h2 className="sub-heading">{displayedSkill}</h2>
+          <p>Building your dream <span>in visual tech!</span></p>
           <div className="hero-buttons">
-            <button>Read More</button>
             <button>Let's connect</button>
           </div>
         </div>
         <div className="hero-card">
-          <img
-            src="#"
-            alt="avatar"
-          />
+          <img src={profileImg} alt="Profile" />
           <div className="hero-card-text">
-            <h3>Why hire me?</h3>
-            <p>
-              I’m a professional developer with a Computer Science degree and
-              2+ years of experience building modern web apps.
-            </p>
+            <p>I’m a professional developer majoring in Computer Science and 2+ years of experience building softwares and modern web apps. I am enthusiastic about the tech world with an aim of making an impact by creating modern solutions for the modern world.</p>
             <div className="hero-card-buttons">
-              <button>Portfolio</button>
-              <button>Download CV</button>
+              <button>View CV</button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* TOOLS AND SKILLS */}
       <section className="skills">
         <div className="skills-tools">
           <h4>Tools</h4>
           <ul>
-            {tools.map((t) => (
-              <li key={t}>{t}</li>
-            ))}
+            {tools.map(t => <li key={t}>{t}</li>)}
           </ul>
         </div>
         <div className="skills-bars">
           <h4>Top Skills</h4>
-          {skills.map((s) => (
-            <SkillBar key={s.name} name={s.name} percent={s.pct} />
-          ))}
+          {skills.map(s => <SkillBar key={s.name} name={s.name} percent={s.pct} />)}
         </div>
         <div className="skills-stats">
-          <Stat num={3} label="Years Experience" />
-          <Stat num={50} label="Projects" />
-          <Stat num={12} label="Clients" />
+          <Stat num={2} label="Years Experience" />
+          <Stat num={4} label="Projects" />
+          <Stat num={3} label="Clients" />
         </div>
       </section>
 
-      {/* FOOTER */}
       <footer className="footer">
         <p>Interested in working together?</p>
-        <a href="mailto:you@example.com">Get in touch</a>
+        <a href="ronnindustries1@gmail.com">Get in touch</a>
       </footer>
     </div>
   );
